@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>kdjbhlsdfv</p>
+
+<h3>Add new tasks</h3>
+<form th:object="${task}" method="POST" action="/add-task">
+    <table>
+        <tr>
+            <td><label>Name:</label></td>
+            <td><label>
+                <input type="text" th:field="*{name}"/>
+            </label></td>
+        </tr>
+    </table>
+
+    <input type="submit" value="add">
+</form>
+
+
+<h1>Tasks</h1>
+<table>
+    <th:block th:each="task : ${tasks}">
+        <tr>
+            <td th:text="${task.getId()}"/>
+            <td th:text="${task.getName()}"/>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>
