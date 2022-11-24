@@ -4,10 +4,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Todo-list</title>
 </head>
 <body>
-<p>kdjbhlsdfv</p>
 
 <h3>Add new tasks</h3>
 <form th:object="${task}" method="POST" action="/add-task">
@@ -16,6 +15,18 @@
             <td><label>Name:</label></td>
             <td><label>
                 <input type="text" th:field="*{name}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td><label>Description:</label></td>
+            <td><label>
+                <input type="text" th:field="*{description}"/>
+            </label></td>
+        </tr>
+        <tr>
+            <td><label>Priority:</label></td>
+            <td><label>
+                <input type="number" th:field="*{priority}"/>
             </label></td>
         </tr>
     </table>
@@ -28,8 +39,10 @@
 <table>
     <th:block th:each="task : ${tasks}">
         <tr>
-            <td th:text="${task.getId()}"/>
             <td th:text="${task.getName()}"/>
+            <td th:text="${task.getDescription()}"/>
+            <td th:text="${task.getPriority()}"/>
+            <td th:text="${task.isDone()}"/>
         </tr>
     </th:block>
 </table>
