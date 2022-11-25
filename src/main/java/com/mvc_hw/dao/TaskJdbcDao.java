@@ -16,16 +16,16 @@ public class TaskJdbcDao extends JdbcDaoSupport implements TaskDao {
     }
 
     @Override
-    public List<Task> getTasks() {
-        String sql = "select * from Tasks";
+    public List<Task> getTasks(Integer listId) {
+        String sql = "select * from Tasks where listId = " + listId.toString();
         return getJdbcTemplate().query(sql, new BeanPropertyRowMapper(Task.class));
     }
 
     @Override
     public int addTask(Task task) {
-        String sql = "insert into Tasks (Name, Description, Priority, IsDone) " +
-                "values (?,?,?,?)";
-        return getJdbcTemplate().update(sql, task.getName(),
+        String sql = "insert into Tasks (listId, Name, Description, Priority, IsDone) " +
+                "values (?,?,?,?,?)";
+        return getJdbcTemplate().update(sql, task.getListId(), task.getName(),
                 task.getDescription(), task.getPriority(), task.isDone());
     }
 

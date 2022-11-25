@@ -1,40 +1,34 @@
 package com.mvc_hw.controller;
 
 import com.mvc_hw.dao.TaskDao;
-import com.mvc_hw.logic.TaskFilter;
 import com.mvc_hw.model.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class TaskController {
     final TaskDao taskDao;
+    private Integer currentListId;
 
     public TaskController(TaskDao taskDao) {
         this.taskDao = taskDao;
     }
 
-    @GetMapping("/")
-    public String getMapping() {
-        return "redirect:/get-tasks";
-    }
-
     @RequestMapping(value = "/add-task", method = RequestMethod.POST)
     public String addTask(@ModelAttribute("task") Task task) {
+        task.setListId(currentListId);
         taskDao.addTask(task);
-        return "redirect:/get-tasks";
+        return "redirect:/get-tasks?listId=" + currentListId.toString();
     }
 
     @RequestMapping(value = "/delete-task", method = RequestMethod.POST)
     public String deleteTask(@RequestParam(name = "taskId") Integer taskId, Model model) {
         model.addAttribute("taskId", taskId);
         taskDao.deleteTask(taskId);
-        return "redirect:/get-tasks";
+        return "redirect:/get-tasks?listId=" + currentListId.toString();
     }
 
     @RequestMapping(value = "/set-is-done", method = RequestMethod.POST)
@@ -48,7 +42,7 @@ public class TaskController {
                 Optional.ofNullable(isDone),
                 Optional.empty(),
                 Optional.empty());
-        return "redirect:/get-tasks";
+        return "redirect:/get-tasks?listId=" + currentListId.toString();
     }
 
     @RequestMapping(value = "/set-priority", method = RequestMethod.POST)
@@ -62,7 +56,7 @@ public class TaskController {
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty());
-        return "redirect:/get-tasks";
+        return "redirect:/get-tasks?listId=" + currentListId.toString();
     }
 
     @RequestMapping(value = "/change-name", method = RequestMethod.POST)
@@ -76,7 +70,7 @@ public class TaskController {
                 Optional.empty(),
                 Optional.ofNullable(new_name),
                 Optional.empty());
-        return "redirect:/get-tasks";
+        return "redirect:/get-tasks?listId=" + currentListId.toString();
     }
 
     @RequestMapping(value = "/change-description", method = RequestMethod.POST)
@@ -90,17 +84,16 @@ public class TaskController {
                 Optional.empty(),
                 Optional.empty(),
                 Optional.ofNullable(new_description));
-        return "redirect:/get-tasks";
+        return "redirect:/get-tasks?listId=" + currentListId.toString();
     }
 
-    @RequestMapping(value = "/get-tasks", method = RequestMethod.GET)
-    public String getTasks(Model map) {
-        prepareModelMap(map, taskDao.getTasks());
-        return "index";
-    }
-
-    private void prepareModelMap(Model map, List<Task> tasks) {
-        map.addAttribute("tasks", tasks);
+    @GetMapping(value = "/get-tasks")
+    public String getTasks(@RequestParam(name = "listId") Integer listId,
+                           Model map) {
+        map.addAttribute("listId", listId);
+        map.addAttribute("tasks", taskDao.getTasks(listId));
         map.addAttribute("task", new Task());
+        currentListId = listId;
+        return "task_list";
     }
 }

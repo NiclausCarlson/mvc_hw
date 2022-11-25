@@ -2,6 +2,8 @@ package com.mvc_hw.model;
 
 public class Task {
     private int id;
+
+    private int listId;
     private String name;
     private String description;
     private int priority;
@@ -13,8 +15,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public Task(int id, String name, String description, int priority, boolean isDone) {
+    public Task(int id, int listId, String name, String description, int priority, boolean isDone) {
         this.id = id;
+        this.listId = listId;
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -59,5 +62,13 @@ public class Task {
 
     public void setIsDone(boolean done) {
         isDone = done;
+    }
+
+    public void setListId(int listId) {
+        this.listId = listId;
+    }
+
+    public int getListId() {
+        return listId;
     }
 }
