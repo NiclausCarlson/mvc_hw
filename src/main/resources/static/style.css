@@ -1,0 +1,67 @@
+.todo_list {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+.todo_list th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+.todo_list td {
+    border: 1px solid #dddddd;
+    padding: 5px;
+}
+
+
+.add_task{
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+
+.add_task input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+
+.add_task th {
+    border: 1px solid #dddddd;
+    padding: 5px;
+}
+
+.todo_list th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+
+input[type=text]
+{
+    color: #979797;
+    height: 28px;
+    padding-left: 10px;
+    text-decoration: none;
+    border:1px solid #777;
+    border-radius:5px
+}
+
+input[type=number]
+{
+    color: #979797;
+    height: 28px;
+    padding-left: 10px;
+    text-decoration: none;
+    border:1px solid #777;
+    border-radius:5px
+}
+

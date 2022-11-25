@@ -5,12 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Todo-list</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 
-<h3>Add new tasks</h3>
 <form th:object="${task}" method="POST" action="/add-task">
-    <table>
+    <table class="add_task">
+        <tr>
+            <th colspan="2">Add new tasks</th>
+        </tr>
         <tr>
             <td><label>Name:</label></td>
             <td><label>
@@ -29,27 +32,15 @@
                 <input type="number" th:field="*{priority}"/>
             </label></td>
         </tr>
-    </table>
-
-    <input type="submit" value="add">
-</form>
-
-
-<h4>Delete from table</h4>
-<form method="POST" action="/delete-task">
-    <table>
         <tr>
-            <td><label>Task_id:</label></td>
-            <td><label>
-                <input type="number" th:name="taskId"/>
-            </label></td>
+            <th colspan="2">
+                <input type="submit" value="add">
+            </th>
         </tr>
     </table>
-    <input type="submit" value="delete">
 </form>
 
-<h1>Tasks</h1>
-<table>
+<table class="todo_list">
     <tr>
         <th>Name</th>
         <th>Priority</th>
