@@ -35,12 +35,29 @@
 </form>
 
 
+<h4>Delete from table</h4>
+<form method="POST" action="/delete-task">
+    <table>
+        <tr>
+            <td><label>Task_id:</label></td>
+            <td><label>
+                <input type="number" th:name="taskId"/>
+            </label></td>
+        </tr>
+    </table>
+    <input type="submit" value="delete">
+</form>
+
 <h1>Tasks</h1>
 <table>
+    <tr>
+        <th>Name</th>
+        <th>Priority</th>
+        <th>isDone</th>
+    </tr>
     <th:block th:each="task : ${tasks}">
         <tr>
             <td th:text="${task.getName()}"/>
-            <td th:text="${task.getDescription()}"/>
             <td th:text="${task.getPriority()}"/>
             <td th:text="${task.isDone()}"/>
         </tr>
