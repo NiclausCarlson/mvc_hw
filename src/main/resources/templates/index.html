@@ -43,14 +43,37 @@
 <table class="todo_list">
     <tr>
         <th>Name</th>
+        <th>Description</th>
         <th>Priority</th>
         <th>isDone</th>
+        <th>Delete</th>
+        <th></th>
     </tr>
     <th:block th:each="task : ${tasks}">
         <tr>
             <td th:text="${task.getName()}"/>
+            <td th:text="${task.getDescription()}"/>
             <td th:text="${task.getPriority()}"/>
-            <td th:text="${task.isDone()}"/>
+            <td>
+                <form method="POST" action="/set-is-done">
+                    <div th:if="${task.isDone()}">
+                        <input type="hidden" th:name="taskId" th:value="${task.getId()}"/>
+                        <input type="hidden" th:name="isDone" th:value="${false}"/>
+                        <input type="submit" value="Set as not done">
+                    </div>
+                    <div th:unless="${task.isDone()}">
+                        <input type="hidden" th:name="taskId" th:value="${task.getId()}"/>
+                        <input type="hidden" th:name="isDone" th:value="${true}"/>
+                        <input type="submit" value="Set as done">
+                    </div>
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="/delete-task">
+                    <input type="hidden" th:name="taskId" th:value="${task.getId()}"/>
+                    <input type="submit" value="delete">
+                </form>
+            </td>
         </tr>
     </th:block>
 </table>

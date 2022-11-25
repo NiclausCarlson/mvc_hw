@@ -48,8 +48,7 @@ public class TaskJdbcDao extends JdbcDaoSupport implements TaskDao {
     }
 
     private <T> void updateTaskImpl(Integer id, String field, T value) {
-        StringBuilder sql = new StringBuilder("update Tasks set ");
-        sql.append(field).append(" = ? ").append("where id = ?");
-        getJdbcTemplate().update(sql.toString(), value, id);
+        String sql = "update Tasks set " + field + " = ? " + "where id = ?";
+        getJdbcTemplate().update(sql, value, id);
     }
 }
